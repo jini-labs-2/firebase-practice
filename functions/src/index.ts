@@ -12,7 +12,7 @@
 
 import {HttpsOptions, onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
-import { getUserInfo, getUserList } from './controllers/user.controller'
+import { addUser, getUserInfo, getUserList } from './controllers/user.controller'
 
 const defaultHttpOptions: HttpsOptions = {
   region: 'asia-northeast1',
@@ -24,5 +24,12 @@ export const helloWorld = onRequest(defaultHttpOptions, (request, response) => {
   response.send("Hello from Firebase!");
 });
 
+// curl http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/users
 export const users = onRequest(defaultHttpOptions, getUserList);
+
+// curl http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/userinfo?id=
+// curl http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/userinfo?email=
 export const userinfo = onRequest(defaultHttpOptions, getUserInfo);
+
+// curl -X POST -d {\"name\": \"kim\", \"email\": \"t1@example.com\"} http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/adduser
+export const adduser = onRequest(defaultHttpOptions, addUser);
