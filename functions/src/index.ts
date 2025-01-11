@@ -13,6 +13,7 @@
 import {HttpsOptions, onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 import { addUser, getUserInfo, getUserList } from './controllers/user.controller'
+import { addTodo, getTodo, getTodoList } from "./controllers/todo.controller";
 
 const defaultHttpOptions: HttpsOptions = {
   region: 'asia-northeast1',
@@ -33,3 +34,12 @@ export const userinfo = onRequest(defaultHttpOptions, getUserInfo);
 
 // curl -X POST -d {\"name\": \"kim\", \"email\": \"t1@example.com\"} http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/adduser
 export const adduser = onRequest(defaultHttpOptions, addUser);
+
+// curl http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/todos
+export const todos = onRequest(defaultHttpOptions, getTodoList);
+
+// curl http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/todo?id=
+export const todo = onRequest(defaultHttpOptions, getTodo);
+
+// curl -X POST -d {\"title\": \"new todo 1st\" } http://127.0.0.1:5001/fir-test-04-2f5cd/asia-northeast1/addtodo
+export const addtodo = onRequest(defaultHttpOptions, addTodo);
