@@ -41,7 +41,7 @@ export async function createTodo(id: string, todo: Partial<Todo>) {
   await docRef.set({
     id,
     title: todo.title,
-    completed: todo.completed
+    completed: todo.completed ?? false
   }, { merge: false });
 
   return { id, title, completed }
