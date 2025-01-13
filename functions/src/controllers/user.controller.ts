@@ -21,9 +21,8 @@ export const getUserInfo = async (req: any, res: any) => {
 
 export const addUser = async (req: any, res: any) => {
   console.log('body: ', req.body);
-  const {name, email} = req.body;
+  const {user_id, email} = req.body;
 
-  const id = Math.random().toString().split('.')[1];
-  const result = await createUser(id, {name, email});
+  const result = await createUser(user_id, {email});
   res.send(result);
 }

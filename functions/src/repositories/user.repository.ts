@@ -2,7 +2,6 @@ import { firestoreDb } from '../firebase';
 
 interface User {
   id: string,
-  name: string,
   email: string,
 }
 
@@ -20,7 +19,6 @@ export async function getAll() {
     const user = doc.data();
     return {
       id: doc.id,
-      name: String(user.name),
       emial: String(user.email)
     } ;
   });
@@ -44,7 +42,6 @@ export async function getByEmail(email: string) {
     const user = doc.data();
     return {
       id: doc.id,
-      name: String(user.name),
       emial: String(user.email)
     } ;
   });
@@ -53,18 +50,16 @@ export async function getByEmail(email: string) {
 }
 
 export async function createUser(id: string, user: Partial<User>) {
-  const { name, email } = user;
-  if (!name || !email)
-    throw new Error('input name and email');
+  const { email } = user;
+  if (!id || !email)
+    throw new Error('input user_id and email');
 
   const db = firestoreDb;
 
   const docRef = db.collection('users').doc(id)
   await docRef.set({
-    id,
-    name: user.name,
     email: user.email
   }, { merge: false });
 
-  return { id, name, email }
+  return { id, email }
 }
